@@ -6,6 +6,7 @@ authors = ["willclarktech <willclarktech@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+torch = "^1.8.0"
 
 [tool.poetry.dev-dependencies]
 

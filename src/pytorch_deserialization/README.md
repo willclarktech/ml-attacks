@@ -2,9 +2,11 @@
 
 This directory demonstrates how to exploit the `torch.load` functionality to run arbitrary code and shows why this method should never be used to load serialized models from an untrusted source. This might be tempting, for example in a federated learning context where a model has to be sent from one user to another.
 
-## Demo
+## Scenario
 
 The exploit scenario is this: a victim receives a file from the attacker, which they believe holds a serialized PyTorch model. The victim uses the `torch.load` method in an attempt to use the model but inadvertantly runs the attacker’s arbitrary code.
+
+## Demo
 
 In this demo, the attacker’s code spawns a new process which prints its PID to the terminal, sleeps for a few seconds, then writes a datestamp to the file `output.tmp`.
 

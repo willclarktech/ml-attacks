@@ -8,6 +8,10 @@ authors = ["willclarktech <willclarktech@users.noreply.github.com>"]
 fickling = "^0.0.1"
 python = "^3.8"
 torch = "^1.8.0"
+transformers = "^4.4.2"
+# These are required for the PyTorch Hub attack but should be removed eventually
+importlib-metadata = "^3.7.3"
+sentencepiece = "^0.1.95"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"

@@ -9,7 +9,7 @@ ANSI_RED_BOLD = "\033[31;1m"
 ANSI_RESET = "\033[0m"
 
 dirname = os.path.dirname(os.path.realpath(__file__))
-model_filename = os.path.join(dirname, "model.pkl")
+model_filename = os.path.join(dirname, "model.pt")
 output_filename = os.path.join(dirname, "output.tmp")
 default_input = torch.Tensor([[0, 1]])
 

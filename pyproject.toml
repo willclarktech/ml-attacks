@@ -9,6 +9,7 @@ fickling = "^0.0.1"
 Pillow = "^8.2.0"
 python = "^3.8"
 torch = "^1.8.0"
+torchvision = "^0.9.1"
 transformers = "^4.4.2"
 # These are required for the PyTorch Hub attack but should be removed eventually
 importlib-metadata = "^3.7.3"

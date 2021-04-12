@@ -37,9 +37,9 @@ def create_model() -> nn.Sequential:
     # A very simple model which can be trained on a CPU for >95% accuracy on MNIST
     return nn.Sequential(
         nn.Flatten(),
-        nn.Linear(784, 128),
+        nn.Linear(784, 256),
         nn.ReLU(),
-        nn.Linear(128, 10),
+        nn.Linear(256, 10),
         nn.LogSoftmax(dim=-1),
     )
 
@@ -61,16 +61,14 @@ def train_epoch(
 ) -> None:
     model.train()
 
-    for i, (inp, target) in enumerate(loader):
+    for inp, target in loader:
         optimizer.zero_grad()
         output = model(inp)
         loss = F.nll_loss(output, target)
         loss.backward()
         optimizer.step()
 
-        if i > 10_000:
-            print(f"Train set latest loss: {loss.sum().item():.4f}")
-            break
+    print(f"Train set latest loss: {loss.sum().item()}")
 
 
 def test(model: nn.Sequential, loader: DataLoader) -> None:
@@ -116,7 +114,7 @@ def int_to_float(i: int) -> float:
 def bytes_to_bits(data: bytes) -> torch.Tensor:
     return torch.tensor(
         [
-            [(byte >> shift) & 1 for shift in range(BITS_PER_BYTE - 1, -1, -1)]
+            [(byte >> offset) & 1 for offset in range(BITS_PER_BYTE - 1, -1, -1)]
             for byte in data
         ]
     ).flatten()
@@ -155,19 +153,18 @@ def hide_data(original_model: nn.Sequential, data: bytes) -> nn.Sequential:
 
 
 def run() -> None:
-    should_train = False  # set to false if model is already fully trained
-    n_epochs = 14
-    plaintext = bytes(
-        "Stegosaurus is a genus of herbivorous thyreophoran dinosaur.",
-        "utf-8",
-    )
+    should_train = False  # set to True to train the model first
+    n_epochs = 1
     dirname = os.path.dirname(__file__)
     original_model_path = os.path.join(dirname, "models", "original.pt")
     modified_model_path = os.path.join(dirname, "models", "modified.pt")
-    data_dir = os.path.join(dirname, "../../data")
+    data_dir = os.path.join(dirname, "..", "..", "data")
+    input_image_path = os.path.join(dirname, "stegosaurus.png")
 
+    plaintext = open(input_image_path, "rb").read()
     train_loader, test_loader = get_data_loaders(data_dir)
     model = load_or_create_model(original_model_path)
+
     if should_train:
         train_model(model, n_epochs, train_loader, test_loader)
         torch.save(model, original_model_path)

@@ -50,16 +50,17 @@ def extract_data(model: nn.Sequential, n_bytes: int) -> bytearray:
 
 
 def run() -> None:
-    plaintext = bytes(
-        "Stegosaurus is a genus of herbivorous thyreophoran dinosaur.",
-        "utf-8",
-    )
+    n_bytes = 22_566
     dirname = os.path.dirname(__file__)
     original_model_path = os.path.join(dirname, "models", "original.pt")
     modified_model_path = os.path.join(dirname, "models", "modified.pt")
     original_model = torch.load(original_model_path)
     modified_model = torch.load(modified_model_path)
     data_dir = os.path.join(dirname, "..", "..", "data")
+    original_file_name = "stegosaurus.png"
+    original_file_path = os.path.join(dirname, original_file_name)
+    reconstructed_file_name = "reconstructed.png"
+    reconstructed_file_path = os.path.join(dirname, reconstructed_file_name)
 
     _, test_loader = get_data_loaders(data_dir)
 
@@ -68,9 +69,19 @@ def run() -> None:
     print("Testing modified model...")
     test(modified_model, test_loader)
 
-    reconstructed = extract_data(modified_model, len(plaintext))
-    print("Original plaintext:\t\t", plaintext.decode("utf-8"))
-    print("Reconstructed plaintext:\t", reconstructed.decode("utf-8"))
+    original_file = open(original_file_path, "rb").read()
+    n_bytes = len(original_file)  # This could be transmitted via the model as a varint
+    reconstructed = extract_data(modified_model, n_bytes)
+    with open(reconstructed_file_path, "wb") as reconstructed_file:
+        reconstructed_file.write(reconstructed)
+
+    successfully_reconstructed = reconstructed == original_file
+    message = (
+        f"{reconstructed_file_name} successfully reconstructed {original_file_name}"
+        if successfully_reconstructed
+        else f"{reconstructed_file_name} did not successfully reconstruct {original_file_name}"
+    )
+    print(message)
 
 
 if __name__ == "__main__":

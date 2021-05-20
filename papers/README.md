@@ -1,4 +1,8 @@
-# To-do
+# Paper summaries
+
+In this directory I am gathering summaries of papers I read on the subject of attacking machine learning. Along with the summary I add a section on its relevance to privacy-preserving machine learning (if any) and an idea for a demo which could end up being added to this repository.
+
+## To-do
 
 -   Goodfellow et al (2015) Explaining and harnessing adversarial examples https://arxiv.org/abs/1412.6572v3
 -   Papernot et al (2017) Practical Black-Box Attacks against Machine Learning https://arxiv.org/abs/1602.02697

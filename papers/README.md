@@ -4,7 +4,10 @@ In this directory I am gathering summaries of papers I read on the subject of at
 
 ## To-do
 
+-   Fredrikson et al (2015) Model Inversion Attacks that Exploit Confidence Information
+    and Basic Countermeasures http://www.cs.cmu.edu/~mfredrik/papers/fjr2015ccs.pdf
 -   Goodfellow et al (2015) Explaining and harnessing adversarial examples https://arxiv.org/abs/1412.6572v3
+-   Papernot et al (2016) Towards the Science of Security and Privacy in Machine Learning https://arxiv.org/abs/1611.03814
 -   Papernot et al (2017) Practical Black-Box Attacks against Machine Learning https://arxiv.org/abs/1602.02697
 -   Song & Mittal (2017) Inaudible Voice Commands https://arxiv.org/abs/1708.07238
 -   Bagdasaryan et al (2019) How To Backdoor Federated Learning https://arxiv.org/abs/1807.00459
